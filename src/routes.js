@@ -1,11 +1,18 @@
 import React from "react";
-import Home from "./components/home";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import MainLayout from "./components/hoc/mainLayout";
+
+import Home from "./components/home";
+import Header from "./components/header";
+
 const IRoutes = () => (
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Home />} />
-    </Routes>
+    <Header />
+    <MainLayout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </MainLayout>
   </BrowserRouter>
 );
 
