@@ -24,3 +24,35 @@ export const getPosts = async (
     throw error;
   }
 };
+
+export const addNewsletter = async (data) => {
+  try {
+    const findUser = await axios.get(
+      `${URL_SERV}/newsletter?email=${data.email}`
+    );
+    console.log(findUser.data);
+    if (!Array.isArray(findUser.data) || !findUser.data.lenght) {
+      //add user
+      const response = await axios({
+        method: "POST",
+        url: `${URL_SERV}/newsletter`,
+        data: {
+          email: data.email,
+        },
+      });
+      return {
+        newsletter: "added",
+        email: response.data,
+      };
+    } else {
+      //already on the db
+      return {
+        newsletter: "failed",
+      };
+    }
+
+    return true;
+  } catch (error) {
+    throw error;
+  }
+};
