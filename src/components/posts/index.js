@@ -29,7 +29,6 @@ const PostComponent = (props) => {
 
   return (
     <>
-    {console.log("return something")}
       {post.postById ? (
         <div className="article_container">
           <h1>{post.postById.title}</h1>
