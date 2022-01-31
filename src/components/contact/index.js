@@ -3,7 +3,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Alert } from "react-bootstrap";
 
+import { useDispatch } from "react-redux";
+import { sendMessage } from "../../store/actions";
+
+import { showToast } from "../utils/tools";
+
 const Contact = () => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: { email: "", firstname: "", lastname: "", message: "" },
     validationSchema: Yup.object({
@@ -18,6 +24,13 @@ const Contact = () => {
     }),
     onSubmit: (values, { resetForm }) => {
       console.log(values);
+      dispatch(sendMessage(values)).then(({ payload }) => {
+        if (payload) {
+          showToast("SUCCESS", "Thany you we will be contacting you soon");
+        } else {
+          showToast("ERROR", "Sorry something went wrong, try again");
+        }
+      });
     },
   });
 
